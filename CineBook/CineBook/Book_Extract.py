@@ -1,11 +1,14 @@
 from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import CountVectorizer
+import requests
 from sklearn.preprocessing import MultiLabelBinarizer
 
 def get_book_labels(filename,no_features):
     #temporarily working with an html file
-    f = open(filename)
-    html_soup = BeautifulSoup(f, 'html.parser')
+    #f = open(filename)
+    #html_soup = BeautifulSoup(f, 'html.parser')
+    r = requests.get(filename)
+    html_soup = BeautifulSoup(r.content,features="html5lib")
     Title = html_soup.title.text[:-12]
     review_containers = html_soup.find_all('div',class_ ='review')
     for i, review in enumerate(review_containers):

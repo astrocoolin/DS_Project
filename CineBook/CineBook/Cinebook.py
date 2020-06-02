@@ -1,12 +1,15 @@
 import matplotlib
 from Book_Extract import get_book_labels
 from sklearn.preprocessing import MultiLabelBinarizer
+from Book_Scrape import googleSearch
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 
 matplotlib.use('tkAgg')
 
 no_features = 15
+book = input()
+googleSearch(book)
 book_titles,book_labels = get_book_labels('Book_page.html',no_features)
 df = pd.read_pickle('Moviedb.pkl')
 #df['Keywords'] = df['Keywords'].str.replace("'",'')
