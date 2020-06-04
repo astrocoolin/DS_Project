@@ -1,9 +1,21 @@
 from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import CountVectorizer
 import requests
+import nltk
+from nltk.corpus import stopwords
 from sklearn.preprocessing import MultiLabelBinarizer
 
 def get_book_labels(filename,no_features):
+    nltk.download('stopwords')
+    stop_nltk=set(stopwords.words("english"))
+
+    stop_custom = {'and', 'best', 'book', 'books', 'character', 'characters', 'did', 'end', 'ending', 'film', 'films', 'great',
+                   'just', 'like', 'make', 'movie', 'movies', 'novel', 'permalink', 'read', 'review', 'story', 'story', 'the',
+                   'when','see','seen', 'get', 'many', 'one', 'made', 'ever', 'every', 'vote', 'much', 'well', 'watch', 'even',
+                   'everything', 'youll', 'would', 'makes', 'even', 'ive', 'really', 'say', 'two', 'three', 'really', 'time'}
+
+    stop_words = stop_nltk.union(stop_custom)
+
     #temporarily working with an html file
     #f = open(filename)
     #html_soup = BeautifulSoup(f, 'html.parser')
@@ -14,7 +26,7 @@ def get_book_labels(filename,no_features):
     for i, review in enumerate(review_containers):
         review_containers[i] = review.find('span', class_ = 'readable').text
 
-    CV = CountVectorizer(max_features=no_features, stop_words='english')
+    CV = CountVectorizer(max_features=no_features, stop_words=stop_words)
     Book_CV = CV.fit_transform(review_containers)
     Book_feature_names = CV.get_feature_names()
     book_labels = Book_feature_names
