@@ -30,139 +30,25 @@
 
 <body id="page-top">
 
-	<!-- Try Section 
-    <section class="bg-primary mb-0" id="try">
-      <div class="container">
-        <h2 class="text-center text-white">Try My App!</h2>
-        <hr class="star-light mb-5">
-              <div class="col-sm m-3 text-center">
-                    <form action="/output" method="GET" id="user_input">
-                          <input class="form-control" type="text" id="user_input" name='user_input' placeholder="e.g. blablabla">
-                    </form>
-              </div>
-       <div class="row justify-content-center">
-             <button type="submit" class="btn btn-secondary btn-lg" form="user_input">Go!</button>
-      </div>
-      
-      {% if my_form_result=='Empty' %}
-      <div class="row mt-4 justify-content-center">
-            <h4 class="text-danger text-center text-uppercase">You did not type anything!</h4>
-                  </div>
-
-      {% elif my_form_result=='NotEmpty' %}     
-
-      <div class="row mt-4 justify-content-center">
-            <h4 class="text-light text-center text-uppercase">We found something!</h4>
-      </div>
-      <div class="row p-1 m-1 justify-content-center">
-            <div class="col-md- w-50 list-group">
-                   <ul class="list-group">
-                   <h4 class="text-center">
-                   <li class="list-group-item d-flex justify-content-between align-items-center active">
-                             <b>{{my_input}}</b>
-                             
-                            <span class="badge badge-primary badge-pill">{{my_number}} followers</span>
-                          </li>
-                        </h4>
-                  </ul>
-            </div>
-            <div class="col">
-            <img src="{{ url_for('static', filename = my_img_name) }}" width=500 height=416>
-            </div>      
-      </div>
-
-      {% else %}
-      {% endif %}      
-      </div>
-    </section>
-	-->
   <!-- Navigation Would Go Here-->
 
   <header class="masthead">
     <div class="container h-100">
       <div class="row h-100">
-        <div class="col-lg-7 my-auto">
+        <div class="col-lg-15 my-auto"> 
           <div class="header-content mx-auto">
-            <h1 class="mb-5">Find a Film to Complement your Favourite Book!</h1>
-            <form action="/output" method="GET" id="user_input">
-               <input class="form-control" type="text" id="user_input" name='user_input' placeholder="e.g. blablabla">
+            <h1 class="mb-5">Find a Film to Complement Your Favourite Book:</h1>
+            <form action="." method="POST">
+               <p><input name='Book_Name' placeholder="e.g. The Hobbit" /></p>
+               <button type="submit" class="btn btn-outline btn-xl" />Find a Movie!</button>
             </form>
-	    <div class="row justify-content-center">
-            <button type="submit" class="btn btn-outline btn-xl js-scroll-trigger" form="user_input">Find a Movie!</button>
+	  </div>
+	</div>
+          <div class="col-lg-15 my-auto my-15">
+            <div class="header-content mx-auto">
+               <h1 class="mb-250"> {{ output }} </h1>
 	    </div>
-      {% if my_form_result=='Empty' %}
-      <div class="row mt-4 justify-content-center">
-            <h4 class="text-danger text-center text-uppercase">You did not type anything!</h4>
-                  </div>
-
-      {% elif my_form_result=='NotEmpty' %}
-
-      <div class="row p-1 m-1 justify-content-center">
-            <div class="col-md- w-50 list-group">
-                   <ul class="list-group">
-                   <h4 class="text-center">
-                   <li class="list-group-item d-flex justify-content-between align-items-center active">
-                             <b>{{my_input}}</b>
-                          </li>
-                        </h4>
-                  </ul>
-            </div>
-	    <!--
-            <div class="col">
-            <img src="{{ url_for('static', filename = my_img_name) }}" width=500 height=416>
-            </div>
-	    -->
-      </div>
-
-      {% else %}
-      {% endif %}
-<!--          </div>
-        </div>
-        <div class="col-lg-5 my-auto">
-          <div class="device-container">
-            <div class="device-mockup ipad_air_2 portrait gold">
-              <div class="device">
-                <div class="screen">
-                  <img src="../static/img/demo-screen-1.jpg" style="full-width" alt="HP">
-                </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  -->
-  <!--
-  <footer>
-    <div class="container">
-      <p>&copy; Your Website 2019. All Rights Reserved.</p>
-      <ul class="list-inline">
-        <li class="list-inline-item">
-          <a href="#">Privacy</a>
-        </li>
-        <li class="list-inline-item">
-          <a href="#">Terms</a>
-        </li>
-        <li class="list-inline-item">
-          <a href="#">FAQ</a>
-        </li>
-      </ul>
-    </div>
-  </footer>
-  -->
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="../static/vendor/jquery/jquery.min.js"></script>
-  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Plugin JavaScript -->
-  <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="../static/js/new-age.min.js"></script>
-
+	</div>
 </body>
 
 </html>

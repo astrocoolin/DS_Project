@@ -6,7 +6,7 @@ from nltk.corpus import stopwords
 from sklearn.preprocessing import MultiLabelBinarizer
 
 def get_book_labels(filename,no_features):
-    nltk.download('stopwords')
+    #nltk.download('stopwords')
     stop_nltk=set(stopwords.words("english"))
 
     stop_custom = {'and', 'best', 'book', 'books', 'character', 'characters', 'did', 'end', 'ending', 'film', 'films', 'great',
@@ -17,15 +17,14 @@ def get_book_labels(filename,no_features):
     stop_words = stop_nltk.union(stop_custom)
 
     #temporarily working with an html file
-    #f = open(filename)
-    #html_soup = BeautifulSoup(f, 'html.parser')
     r = requests.get(filename)
     html_soup = BeautifulSoup(r.content,features="html5lib")
     Title = html_soup.title.text[:-12]
     review_containers = html_soup.find_all('div',class_ ='review')
     for i, review in enumerate(review_containers):
         review_containers[i] = review.find('span', class_ = 'readable').text
-
+    if len(review_containers) < 2:
+        return
     CV = CountVectorizer(max_features=no_features, stop_words=stop_words)
     Book_CV = CV.fit_transform(review_containers)
     Book_feature_names = CV.get_feature_names()

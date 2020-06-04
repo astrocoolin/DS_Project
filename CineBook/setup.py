@@ -1,12 +1,11 @@
 from setuptools import setup
 
-setup(name='CineBook'
-      version='0.1',
-      description='The funniest joke in the world',
-      url='http://github.com/storborg/funniest',
-      author='Flying Circus',
-      author_email='flyingcircus@example.com',
-      license='MIT',
-      packages=['funniest'],
-      zip_safe=False)
-
+setup(name='CineBook',
+    version="0.0.1",
+    author="Example Author",
+    author_email="author@example.com",
+    description="A small example package",
+    url="https://github.com/pypa/sampleproject",
+    packages=setuptools.find_packages(),
+    python_requires='>=3.6',
+)
