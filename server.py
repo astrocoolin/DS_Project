@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from CineBook import CineBook as CB
+from DblPlusBooks import DblPlusBooks as DPBooks
 from flask import Flask, render_template, request
 
 # Create the application object
@@ -18,7 +18,7 @@ def dynamic_page():
             book = str(request.form['Book_Name'])
         except:
             errors += "I don't have any exceptions at this point"
-        result = CB.rec_movie(book)
+        result = DPBooks.rec_movie(book)
         return render_template('index.html',output=result)
         
     return render_template('index.html',output=result)
