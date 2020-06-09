@@ -17,7 +17,8 @@ def get_book_labels(filename,no_features):
     # get book keywords and title of book, scrape from internet
     r = requests.get(filename)
     html_soup = BeautifulSoup(r.content,features="html5lib")
-    Title = html_soup.title.text[:-12]
+    coverurl = html_soup.find('img',id='coverImage')['src']
+    Title = html_soup.find('h1',id='bookTitle').text.strip()
 
     # Extract reviews and vectorize the text, returning the keywords
     review_containers = html_soup.find_all('div',class_ ='review')
@@ -29,4 +30,4 @@ def get_book_labels(filename,no_features):
     Book_Vect = Vect.fit_transform(review_containers)
     Book_feature_names = Vect.get_feature_names()
     book_labels = Book_feature_names
-    return Title, book_labels
+    return Title, book_labels, coverurl

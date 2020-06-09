@@ -1,5 +1,6 @@
 __all__ = [
+        'DblPlusBooks',
         'Book_Extract',
-        'DblPlusBooks'
-        'Book_Scrape'
+        'Book_Scrape',
+        'Movie_Scrape'
 ]
