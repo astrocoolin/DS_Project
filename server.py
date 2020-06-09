@@ -18,8 +18,9 @@ def dynamic_page():
             book = str(request.form['Book_Name'])
         except:
             errors += "I don't have any exceptions at this point"
-        result = DPBooks.rec_movie(book)
-        return render_template('index.html',output=result)
+        #book_title, book_cover,movie_suggestion= DPBooks.rec_movie(book)
+        output = DPBooks.rec_movie(book)
+        return render_template('index.html',book_title=output[0],book_cover = output[1],movie_title=output[2],movie_cover=output[3])
         
     return render_template('index.html',output=result)
 

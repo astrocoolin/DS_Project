@@ -11,7 +11,7 @@ body {
 }
 
 body {
-  font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif';
+  font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif', 'Luminari';
 }
 
 a {
@@ -40,7 +40,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif';
+  font-family: 'Luminari', 'Helvetica', 'Arial', 'sans-serif';
   font-weight: 200;
   letter-spacing: 1px;
 }
@@ -155,9 +155,8 @@ header.masthead {
   width: 100%;
   padding-top: 150px;
   padding-bottom: 100px;
-  color: white;
-  background: url("../img/bg-pattern.png"), #7b4397;
-  background: url("../img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+  background: url("../img/bg-pattern_2.png"), #7b4397;
+  background: url("../img/bg-pattern_2.png"), linear-gradient(to left, #7b4397, #dc2430);
 }
 
 header.masthead .header-content {
@@ -416,8 +415,8 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
 
 .btn-outline:hover, .btn-outline:focus, .btn-outline:active, .btn-outline.active {
   color: white;
-  border-color: #fdcc52;
-  background-color: #fdcc52;
+  border-color: #550000;
+  background-color: #550000;
 }
 
 .btn {
@@ -430,4 +429,85 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
 .btn-xl {
   font-size: 11px;
   padding: 15px 45px;
+}
+
+.whole-box {
+  width: 100%;
+  height: 100%;
+  margin-top: auto;
+  margin-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  border: 10px double #000000;
+}
+
+.big-box {
+  width: 100%;
+  margin-top: auto;
+  margin-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.small_bookbox {
+  float:left;
+  width: 50%;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-left: auto;
+  background-color:rgba(85, 0, 0, 0.5);
+  border: 10px double #000000;
+}
+
+.small_moviebox {
+  float:right;
+  width: 50%;
+  margin-top: auto;
+  margin-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color:rgba(0, 0, 0, 0.5);
+  border: 10px double #000000;
+}
+
+.title-box {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  border-radius: 25px;
+  background-color:#550000;
+}
+
+.results-box {
+  max-width: 500px;
+  margin-left: 200px;
+  margin-right: auto;
+}
+
+.i_image {
+  float: left;
+  margin-left: 130px;
+  margin-right: auto;
+  border: 10px groove #FF0000;
+
+}
+.j_image {
+  float: right;
+  margin-left: auto;
+  margin-right: 130px;
+  border: 10px groove #EE82EE;
+
+}
+
+.title_images::after {
+  content: "";
+  clear: both;
+  display: table;
+  max-width: 200px;
+}
+
+form {
+display: block;
+margin-top: 0em;
 }
