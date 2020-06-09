@@ -1,32 +1,71 @@
 import requests
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.metrics.pairwise import cosine_similarity
 from bs4 import BeautifulSoup
 import re
-import urllib.parse
 from urllib.parse import urlparse
+import pandas as pd
+import numpy as np
 
-def grab_movie_img(query):
-    query = query+' site:imdb.com'
-    g_clean = [ ] #this is the list we store the search results
-    url = 'https://www.google.com/search?client=ubuntu&channel=fs&q={}&ie=utf-8&oe=utf-8'.format(query)#this is the actual query we are going to scrape
-    html = requests.get(url)
-    soup = BeautifulSoup(html.text,features="html5lib")
-    a = soup.find_all('a') # a is a list
-    a[0].get('href')
-    for i in a:
-        k = i.get('href')
-        try:
-            m = re.search("(?P<url>https?://[^\s]+)", k)
-            n = m.group(0)
-            rul = n.split('&')[0]
-            domain = urlparse(rul)
-            if(re.search('google.com', domain.netloc)):
+
+class Movies:
+    def __init__(self,book,nofeatures):
+        self.df = pd.read_pickle(
+            '/home/colin/Data_Science/Insight/DS_Project/data/raw/top_250_movies/Moviedb.pkl')
+        self.keywords = []
+        self.webpage = ""
+        self.title = ""
+        self.coverlink = ""
+        self.nofeatures = nofeatures
+        self.second_best = ""
+        self.third_best = ""
+        self.combine_frames(book)
+        self.H = self.best_movie()
+        self.grab_movie_img()
+
+    def combine_frames(self,book):
+        Book_df = book.df
+        self.df = Book_df.append(self.df).reset_index(drop=True)
+
+    def best_movie(self):
+        # Determine which movie has the most features in common with the book
+        mlb = MultiLabelBinarizer()
+        temp_df = self.df.copy()
+        clean_df = temp_df.join(pd.DataFrame(mlb.fit_transform(temp_df.pop('Keywords')),
+                                   columns=mlb.classes_,
+                                   index=temp_df.index))
+        sparse_df = clean_df.drop(columns='Name')
+        H = cosine_similarity(sparse_df, sparse_df)
+        top_three = list(H[0].argsort()[::-1][1:4])
+        self.keywords = self.df['Keywords'][top_three[0]]
+        self.title = clean_df['Name'][top_three[0]]
+        self.second_best =clean_df['Name'][top_three[1]]
+        self.third_best = clean_df['Name'][top_three[2]]
+        return H, clean_df['Name']
+
+    def grab_movie_img(self):
+        query = self.title + ' site:imdb.com'
+        g_clean = []
+        self.webpage = 'https://www.google.com/search?client=ubuntu&channel=fs&q={}&ie=utf-8&oe=utf-8'.format(
+            query)  # this is the actual query we are going to scrape
+        html = requests.get(self.webpage)
+        soup = BeautifulSoup(html.text, features="html5lib")
+        a = soup.find_all('a')  # a is a list
+        a[0].get('href')
+        for i in a:
+            k = i.get('href')
+            try:
+                m = re.search("(?P<url>https?://[^\s]+)", k)
+                n = m.group(0)
+                rul = n.split('&')[0]
+                domain = urlparse(rul)
+                if re.search("google.com", domain.netloc):
+                    continue
+                else:
+                    g_clean.append(rul)
+            except:
                 continue
-            else:
-                g_clean.append(rul)
-        except:
-            continue
-    url = g_clean[0]
-    html = requests.get(url)
-    soup = BeautifulSoup(html.text,features="html5lib")
-    return soup.find(class_='poster').img['src']
-
+        url = g_clean[0]
+        html = requests.get(url)
+        soup = BeautifulSoup(html.text, features="html5lib")
+        self.coverlink = soup.find(class_='poster').img['src']

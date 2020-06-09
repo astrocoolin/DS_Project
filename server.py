@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from DblPlusBooks import DblPlusBooks as DPBooks
+from DblPlusBooks import Movie_Scrape, BookProcessing
 from flask import Flask, render_template, request
 
 # Create the application object
@@ -13,14 +13,18 @@ def my_form():
 def dynamic_page():
     output = ""
     if request.method == 'POST':
-        book = 'The Hobbit'
+        nofeatures = 25
         try:
-            book = str(request.form['Book_Name'])
+            book_name = str(request.form['Book_Name'])
+            book = BookProcessing.Book(book_name,nofeatures)
+            movies = Movie_Scrape.Movies(book,nofeatures)
         except:
             errors += "I don't have any exceptions at this point"
         #book_title, book_cover,movie_suggestion= DPBooks.rec_movie(book)
-        output = DPBooks.rec_movie(book)
-        return render_template('index.html',book_title=output[0],book_cover = output[1],movie_title=output[2],movie_cover=output[3])
+        #output = DPBooks.rec_movie(book)
+        return render_template('index.html',book_title=book.title,book_cover = book.coverlink,movie_title=movies.title,
+                               movie_cover=movies.coverlink,sugg_two=movies.second_best,sugg_three=movies.third_best,
+                               keywords=', '.join(list(set(book.keywords).intersection(movies.keywords))))
         
     return render_template('index.html',output=result)
 

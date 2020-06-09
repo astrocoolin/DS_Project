@@ -50,24 +50,23 @@
        <div class="title_images"> 
 	       <div class='container big-box'>
 	               <div class='container small_bookbox'>
-            <h1 class="text-center" style="color:white;font-size:35px">Your Book:</h1>
-	    <h1 class="text-center" style="color:white;font-size:35px">{{ book_title }}</h1>
-		       <div class="i_image">
-			       <img src={{ book_cover }} style="width:200px">
-		       </div>
-		       <div class='container'>
-	    		</div>
+            		   <h1 class="text-center" style="color:white;font-size:25px">Your Book:</h1>
+	    		   <h1 class="text-center" style="color:white;font-size:25px">{{ book_title }}</h1>
+		       	   <div class="i_image">
+			        <img src={{ book_cover }} style="height:300px">
+		       	   </div>
 		       </div>
 	               <div class='container small_moviebox'>
-            		<h1 class="text-center" style="color:white;font-size:35px" >Our Suggestion:</h1>
-		       <h1 class="text-center" style="color:white;font-size:35px">{{ movie_title }}</h1>
-		       <div class="j_image">
-			       <img src={{ movie_cover }} style="width:200px">
-		       </div>
+            		   <h1 class="text-center" style="color:white;font-size:25px" >Our Suggestion:</h1>
+		           <h1 class="text-center" style="color:white;font-size:25px">{{ movie_title }}</h1>
+		       	      <div class="j_image">
+			         <img src={{ movie_cover }} style="height:300px">
+		              </div>
 		       </div>
 	       </div>
        </div>
-            <h1 class="mb-5 text-center" style="color:white;font-size:35px">Other suggestions: film1, film2, film3 </h1>
+        <h1 class="text-center" style="color:white;font-size:25px"> Keywords: {{ keywords }} </h1>
+            <h1 class="text-center" style="color:white;font-size:25px">Other suggestions: {{ sugg_two }} , {{ sugg_three }} </h1>
    </div>
   </header>
 </body>

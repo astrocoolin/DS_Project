@@ -1,6 +1,5 @@
 __all__ = [
         'DblPlusBooks',
-        'Book_Extract',
-        'Book_Scrape',
+        'BookProcessing',
         'Movie_Scrape'
 ]
