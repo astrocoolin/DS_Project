@@ -1,6 +1,7 @@
 import requests
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.neighbors import NearestNeighbors
 from bs4 import BeautifulSoup
 import re
 from urllib.parse import urlparse
@@ -11,7 +12,7 @@ import numpy as np
 class Movies:
     def __init__(self,book,nofeatures):
         self.df = pd.read_pickle(
-            '/home/colin/Data_Science/Insight/DS_Project/data/raw/top_250_movies/Moviedb.pkl')
+            '/home/colin/Data_Science/Insight/DS_Project/data/processed/Full_DB.pkl')
         self.keywords = []
         self.webpage = ""
         self.title = ""
@@ -20,7 +21,7 @@ class Movies:
         self.second_best = ""
         self.third_best = ""
         self.combine_frames(book)
-        self.H = self.best_movie()
+        self.best_movie()
         self.grab_movie_img()
 
     def combine_frames(self,book):
@@ -31,17 +32,23 @@ class Movies:
         # Determine which movie has the most features in common with the book
         mlb = MultiLabelBinarizer()
         temp_df = self.df.copy()
+        print('b4 mlb')
         clean_df = temp_df.join(pd.DataFrame(mlb.fit_transform(temp_df.pop('Keywords')),
                                    columns=mlb.classes_,
                                    index=temp_df.index))
+        print('post mlb')
         sparse_df = clean_df.drop(columns='Name')
-        H = cosine_similarity(sparse_df, sparse_df)
-        top_three = list(H[0].argsort()[::-1][1:4])
-        self.keywords = self.df['Keywords'][top_three[0]]
-        self.title = clean_df['Name'][top_three[0]]
-        self.second_best =clean_df['Name'][top_three[1]]
-        self.third_best = clean_df['Name'][top_three[2]]
-        return H, clean_df['Name']
+        print('pre NN')
+        print(sparse_df.shape)
+        nbrs = NearestNeighbors(n_neighbors=4, algorithm='ball_tree').fit(sparse_df.iloc[1:])
+        distances, top_three = nbrs.kneighbors(pd.DataFrame(sparse_df.iloc[0]).T)
+        print('post NN',top_three)
+        self.keywords = self.df['Keywords'][top_three[0][0]+1]
+        self.title = clean_df['Name'][top_three[0][0]+1]
+        self.second_best =clean_df['Name'][top_three[0][1]+1]
+        self.third_best = clean_df['Name'][top_three[0][2]+1]
+        #return H, clean_df['Name']
+        #return sparse_df
 
     def grab_movie_img(self):
         query = self.title + ' site:imdb.com'

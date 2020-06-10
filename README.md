@@ -1,1 +1,1 @@
-# Webapp that gives recommendation based on a book preference
+# Webapp that gives film recommendations based on book preferences

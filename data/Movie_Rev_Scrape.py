@@ -24,12 +24,12 @@ def movie_list_generator():
     top_250 = []
     for i in range(0,2000,50):
         #IMDB_database = 'https://www.imdb.com/search/title/?groups=top_250&sort=user_rating,desc&start=%i&ref_=adv_nxt'%(i+1)
-        IMDB_database = 'https://www.imdb.com/search/title/?title_type=movie&genres=action&sort=num_votes,desc&start=%i&explore=title_type,genres&ref_=adv_nxt'%(i+1)
+        IMDB_database = 'https://www.imdb.com/search/title/?title_type=movie&genres=family&sort=num_votes,desc&start=%i&explore=title_type,genres&ref_=adv_nxt'%(i+1)
         r = requests.get(IMDB_database)
         html_soup = BeautifulSoup(r.content, features="html5lib")
         temp_50 = html_soup.find_all('h3')[:50]
         top_250.extend(temp_50)
-        time.sleep(10.0)
+        time.sleep(5.0)
     Name_list = []
     Keyword_list = []
 
@@ -41,7 +41,7 @@ def movie_list_generator():
             tempname, tempkeys = get_movie_labels(top_250[i], no_features, stop_words,i+0)
             Name_list.append(tempname)
             Keyword_list.append(tempkeys)
-            time.sleep(10.0)
+            time.sleep(5.0)
 
     return Name_list, Keyword_list
 

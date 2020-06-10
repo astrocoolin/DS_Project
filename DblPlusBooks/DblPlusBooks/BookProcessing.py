@@ -55,7 +55,8 @@ class Book:
                        'ever', 'every', 'vote', 'much', 'well', 'watch', 'even', 'everything', 'youll', 'would',
                        'makes', 'even', 'ive', 'really', 'say', 'two', 'three', 'really', 'time', 'reading', 'read',
                        'first', 'going', 'good', 'little', 'new', 'things', 'thing', 'yet', 'us', 'want', 'fiction',
-                       'science', 'novella', 'people', 'something', 'know'}
+                       'science', 'novella', 'people', 'something', 'know', 'though', 'go', 'post', 'back', 'series'
+                       'year','years'}
         stop_words = stop_nltk.union(stop_custom)
 
         # get book keywords and title of book, scrape from internet
@@ -67,10 +68,10 @@ class Book:
         # Extract reviews and vectorize the text, returning the keywords
         review_containers = html_soup.find_all('div', class_='review')
         for i, review in enumerate(review_containers):
-            review_containers[i] = review.find('span', class_='readable').text
+            review_containers[i] = review.find('span', class_='readable').text.encode("ascii","ignore").strip()
         if len(review_containers) < 2:
             return
-        Vect = TfidfVectorizer(max_features=self.nofeatures, stop_words=stop_words, max_df=0.65)
+        Vect = TfidfVectorizer(max_features=self.nofeatures, stop_words=stop_words, max_df=0.85)
         Book_Vect = Vect.fit_transform(review_containers)
         Book_feature_names = Vect.get_feature_names()
         self.keywords = Book_feature_names
