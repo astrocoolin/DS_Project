@@ -1,5 +1,8 @@
+from flask import Flask
+app = Flask(__name__,template_folder='templates')
+
 __all__ = [
         'DblPlusBooks',
         'BookProcessing',
-        'Movie_Scrape'
+        'Movie_Scrape',
 ]

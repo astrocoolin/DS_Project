@@ -28,7 +28,7 @@ class Book:
             query)  # this is the actual query we are going to scrape
 
         html = requests.get(url)
-        soup = BeautifulSoup(html.text, features="html5lib")
+        soup = BeautifulSoup(html.text)
         a = soup.find_all('a')  # a is a list
         a[0].get('href')
         for i in a:
@@ -61,7 +61,7 @@ class Book:
 
         # get book keywords and title of book, scrape from internet
         r = requests.get(self.webpage)
-        html_soup = BeautifulSoup(r.content, features="html5lib")
+        html_soup = BeautifulSoup(r.content)
         self.coverlink = html_soup.find('img', id='coverImage')['src']
         self.title = html_soup.find('h1', id='bookTitle').text.strip()
 
