@@ -43,19 +43,26 @@ class movie_reviews:
             self.df = self.df.append(pd.DataFrame({'Name':self.name, 'Keywords':[self.keywords]}))
 
     def make_dataframe(self,genre):
-        for i in range(0,2000):
+        for i in range(0,500):
             print(i,genre)
             self.set_index(i)
             self.get_keywords(genre)
 
     def save_dataframe(self):
-        self.make_dataframe('action')
+        self.make_dataframe('adventure')
+        self.make_dataframe('biography')
         self.make_dataframe('comedy')
+        self.make_dataframe('crime')
+        self.make_dataframe('documentary')
         self.make_dataframe('drama')
+        self.make_dataframe('family')
         self.make_dataframe('horror')
         self.make_dataframe('romance')
         self.make_dataframe('scifi')
         self.make_dataframe('thriller')
+        #self.make_dataframe('top_250_movies')
+        self.make_dataframe('western')
+
         self.df = self.df.reset_index().drop(columns = ['index'])
         return self.df
 

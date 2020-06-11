@@ -7,7 +7,7 @@ import nltk
 from nltk.corpus import stopwords
 import numpy as np
 
-def movie_list_generator():
+def movie_list_generator(genre):
     #nltk.download('stopwords')
     stop_nltk=set(stopwords.words("english"))
     stop_custom = {'and', 'best', 'book', 'books', 'character', 'characters', 'did', 'end', 'ending', 'film', 'films', 'great',
@@ -24,7 +24,7 @@ def movie_list_generator():
     top_250 = []
     for i in range(0,2000,50):
         #IMDB_database = 'https://www.imdb.com/search/title/?groups=top_250&sort=user_rating,desc&start=%i&ref_=adv_nxt'%(i+1)
-        IMDB_database = 'https://www.imdb.com/search/title/?title_type=movie&genres=family&sort=num_votes,desc&start=%i&explore=title_type,genres&ref_=adv_nxt'%(i+1)
+        IMDB_database = 'https://www.imdb.com/search/title/?title_type=movie&genres='+genre+'&sort=num_votes,desc&start='+str(i+1)+'&explore=title_type,genres&ref_=adv_nxt'
         r = requests.get(IMDB_database)
         html_soup = BeautifulSoup(r.content, features="html5lib")
         temp_50 = html_soup.find_all('h3')[:50]
@@ -44,7 +44,6 @@ def movie_list_generator():
             time.sleep(5.0)
 
     return Name_list, Keyword_list
-
 
 def get_movie_labels(url, no_features, stop_words,j):
     r = requests.get(url.replace('?', 'reviews?'))
@@ -68,6 +67,11 @@ def get_movie_labels(url, no_features, stop_words,j):
     return Title, Movie_labels
 
 
-movie_titles, movie_labels = movie_list_generator()
-df = pd.DataFrame({'Name': movie_titles, 'Keywords': movie_labels})
-df.to_pickle('Moviedb.pkl')
+#movie_list_generator('biography')
+movie_list_generator('fantasy')
+#movie_list_generator('crime')
+#movie_list_generator('history')
+
+#movie_titles, movie_labels = movie_list_generator()
+#df = pd.DataFrame({'Name': movie_titles, 'Keywords': movie_labels})
+#df.to_pickle('Moviedb.pkl')
