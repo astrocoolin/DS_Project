@@ -12,7 +12,7 @@ import numpy as np
 class Movies:
     def __init__(self,book,nofeatures):
         self.df = pd.read_pickle(
-            '/home/colin/Data_Science/Insight/DS_Project/data/processed/Full_DB.pkl')
+            '/home/ubuntu/DS_Project/data/Full_DB.pkl')
         self.keywords = []
         self.webpage = ""
         self.title = ""
@@ -56,7 +56,7 @@ class Movies:
         self.webpage = 'https://www.google.com/search?client=ubuntu&channel=fs&q={}&ie=utf-8&oe=utf-8'.format(
             query)  # this is the actual query we are going to scrape
         html = requests.get(self.webpage)
-        soup = BeautifulSoup(html.text, features="html5lib")
+        soup = BeautifulSoup(html.text)
         a = soup.find_all('a')  # a is a list
         a[0].get('href')
         for i in a:
@@ -74,5 +74,5 @@ class Movies:
                 continue
         url = g_clean[0]
         html = requests.get(url)
-        soup = BeautifulSoup(html.text, features="html5lib")
+        soup = BeautifulSoup(html.text)
         self.coverlink = soup.find(class_='poster').img['src']

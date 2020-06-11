@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-from DblPlusBooks import Movie_Scrape, BookProcessing
 from flask import Flask, render_template, request
+from DblPlusBooks import Movie_Scrape, BookProcessing
 
-# Create the application object
-app = Flask(__name__)
+app = Flask(__name__,template_folder='/home/ubuntu/DS_Project/templates')
+
+print(app)
 
 @app.route('/')
+@app.route('/index')
 def my_form():
     return render_template('index.html')
 
@@ -14,12 +16,12 @@ def dynamic_page():
     output = ""
     if request.method == 'POST':
         nofeatures = 25
-        try:
-            book_name = str(request.form['Book_Name'])
-            book = BookProcessing.Book(book_name,nofeatures)
-            movies = Movie_Scrape.Movies(book,nofeatures)
-        except:
-            errors += "I don't have any exceptions at this point"
+#        try:
+        book_name = str(request.form['Book_Name'])
+        book = BookProcessing.Book(book_name,nofeatures)
+        movies = Movie_Scrape.Movies(book,nofeatures)
+#       except:
+#            errors += "I don't have any exceptions at this point"
         #book_title, book_cover,movie_suggestion= DPBooks.rec_movie(book)
         #output = DPBooks.rec_movie(book)
         return render_template('index.html',book_title=book.title,book_cover = book.coverlink,movie_title=movies.title,
@@ -28,5 +30,7 @@ def dynamic_page():
         
     return render_template('index.html',output=result)
 
-if __name__ == "__main__":
-    app.run(debug=True)  # will run locally http://127.0.0.1:5000/
+app.run(host='0.0.0.0', debug = True)
+
+#if __name__ == "__main__":
+#    app.run(debug=True)  # will run locally http://127.0.0.1:5000/
