@@ -46,6 +46,28 @@
       </div>
     
     </div>
+    <div class="container big-box">
+       <div class="title_images"> 
+	       <div class='container big-box'>
+	               <div class='container small_bookbox'>
+      			   <div class="container left-title-box">
+				<img src="../static/img/Book_words.png" class="center-ville">
+      			   </div>
+	    		   <h1 class="text-center" style="color:white;font-size:25px">{{ book_title }}</h1>
+			   <img src={{ book_cover }} style="height:300px" class="center-ville i_image">
+		       </div>
+	               <div class='container small_moviebox'>
+      			      <div class="container right-title-box">
+				 <img src="../static/img/Movie_words.png" class="center-ville">
+      			      </div>
+		              <h1 class="text-center" style="color:white;font-size:25px">{{ movie_title }}</h1>
+			      <img src={{ movie_cover }} style="height:300px" class="center-ville j_image">
+	               </div>
+                 </div>
+       </div>
+        <h1 class="text-center" style="color:white;font-size:25px"> Keywords: {{ keywords }} </h1>
+            <h1 class="text-center" style="color:white;font-size:25px">Other suggestions: {{ sugg_two }} , {{ sugg_three }} </h1>
+   </div>
   </header>
 </body>
 

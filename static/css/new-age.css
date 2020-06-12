@@ -474,11 +474,27 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
 }
 
 .title-box {
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
   border-radius: 25px;
-  background-color:#550000;
+  background-color: #550000;
+}
+
+.left-title-box {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 25px;
+  background-color: #550000;
+}
+.right-title-box {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 25px;
+  background-color: #000000;
 }
 
 .results-box {
@@ -488,27 +504,25 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
 }
 
 .i_image {
-  float: left;
-  margin-left: 155px;
-  margin-right: auto;
+  #margin-right: auto;
+  #margin-left:150;
   border: 3px solid #000000;
   max-height:500pt;
 
 }
 .j_image {
-  float: right;
-  margin-left: auto;
-  margin-right: 155px;
+  #margin-left: auto;
+  #margin-right: 150;
   border: 3px solid #000000;
   max-height:500pt;
-
 }
 
-.title_images::after {
-  content: "";
-  clear: both;
-  display: table;
-  max-width: 200px;
+
+
+.center-ville {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 form {

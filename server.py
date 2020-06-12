@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 from flask import Flask, render_template, request
-from DblPlusBooks import Movie_Scrape, BookProcessing
+from Books2Films import Movie_Scrape, BookProcessing
 
-app = Flask(__name__,template_folder='/home/ubuntu/DS_Project/templates')
+app = Flask(__name__,template_folder='/home/colin/Insight_Project/templates')
 
 print(app)
 
@@ -24,12 +24,10 @@ def dynamic_page():
 #            errors += "I don't have any exceptions at this point"
         #book_title, book_cover,movie_suggestion= DPBooks.rec_movie(book)
         #output = DPBooks.rec_movie(book)
-        return render_template('index.html',book_title=book.title,book_cover = book.coverlink,movie_title=movies.title,
+        return render_template('results.html',book_title=book.title,book_cover = book.coverlink,movie_title=movies.title,
                                movie_cover=movies.coverlink,sugg_two=movies.second_best,sugg_three=movies.third_best,
                                keywords=', '.join(list(set(book.keywords).intersection(movies.keywords))))
         
-    return render_template('index.html',output=result)
-
 app.run(host='0.0.0.0', debug = True)
 
 #if __name__ == "__main__":

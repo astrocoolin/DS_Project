@@ -37,32 +37,34 @@ class movie_reviews:
                 if j > 0:
                     self.text[j] = review.encode("ascii","ignore").strip()
             self.name =  self.text[0]
-            movie_vec= TfidfVectorizer(max_features=self.nofeatures, stop_words=stop_words, max_df=0.65)
+            movie_vec= TfidfVectorizer(max_features=self.nofeatures, stop_words=stop_words, max_df=0.80,ngram_range=(1,1))
             movie_vec.fit_transform(self.text[1:])
             self.keywords = movie_vec.get_feature_names()
             self.df = self.df.append(pd.DataFrame({'Name':self.name, 'Keywords':[self.keywords]}))
 
-    def make_dataframe(self,genre):
-        for i in range(0,500):
+    def make_dataframe(self,genre,lim):
+        for i in range(0,lim):
             print(i,genre)
             self.set_index(i)
             self.get_keywords(genre)
 
     def save_dataframe(self):
-        self.make_dataframe('adventure')
-        self.make_dataframe('biography')
-        self.make_dataframe('comedy')
-        self.make_dataframe('crime')
-        self.make_dataframe('documentary')
-        self.make_dataframe('drama')
-        self.make_dataframe('family')
-        self.make_dataframe('horror')
-        self.make_dataframe('romance')
-        self.make_dataframe('scifi')
-        self.make_dataframe('thriller')
-        #self.make_dataframe('top_250_movies')
-        self.make_dataframe('western')
+        #self.make_dataframe('action',50)
+        #self.make_dataframe('adventure',50)
+        #self.make_dataframe('biography',50)
+        #self.make_dataframe('comedy',50)
+        #self.make_dataframe('crime',50)
+        #self.make_dataframe('documentary',50)
+        #self.make_dataframe('drama',50)
+        #self.make_dataframe('family',50)
+        #self.make_dataframe('fantasy',325)
+        #self.make_dataframe('horror',50)
+        #self.make_dataframe('romance',50)
+        #self.make_dataframe('scifi',50)
+        #self.make_dataframe('thriller',50)
+        #self.make_dataframe('western',50)
 
+        self.make_dataframe('top_250_movies',250)
         self.df = self.df.reset_index().drop(columns = ['index'])
         return self.df
 
