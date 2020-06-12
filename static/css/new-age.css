@@ -444,7 +444,13 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li 
 .big-box {
   width: 100%;
   margin-top: auto;
-  margin-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.heck-box {
+  width: 100%;
+  margin-top: 450px;
   margin-right: auto;
   margin-left: auto;
 }

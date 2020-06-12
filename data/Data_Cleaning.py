@@ -4,11 +4,12 @@ import numpy as np
 from nltk.corpus import stopwords
 class movie_reviews:
     def __init__(self):
-        self.keywords = ""
+        self.unikeywords = []
+        self.bikeywords = []
         self.name = ""
         self.index = 0
         self.text = ""
-        self.nofeatures = 25
+        self.nofeatures = 50
         self.df= pd.DataFrame(columns = ['Name',"Keywords"])
 
     def set_index(self,i):
@@ -21,7 +22,7 @@ class movie_reviews:
                'ever', 'every', 'vote', 'much', 'well', 'watch', 'even', 'everything', 'youll', 'would',
                'makes', 'even', 'ive', 'really', 'say', 'two', 'three', 'really', 'time', 'reading', 'read',
                'first', 'going', 'good', 'little', 'new', 'things', 'thing', 'yet', 'us', 'want', 'fiction',
-               'science', 'novella', 'people', 'something', 'know'}
+               'science', 'novella', 'people', 'something', 'know', 'http', 'www'}
         stop_custom2 = {'and', 'best', 'book', 'books', 'character', 'characters', 'did', 'end', 'ending', 'film', 'films', 'great',
                'just', 'like', 'make', 'movie', 'movies', 'novel', 'permalink', 'read', 'review', 'story', 'story', 'the',
                'when','see','seen', 'get', 'many', 'one', 'made', 'ever', 'every', 'vote', 'much', 'well', 'watch', 'even',
@@ -37,10 +38,14 @@ class movie_reviews:
                 if j > 0:
                     self.text[j] = review.encode("ascii","ignore").strip()
             self.name =  self.text[0]
-            movie_vec= TfidfVectorizer(max_features=self.nofeatures, stop_words=stop_words, max_df=0.80,ngram_range=(1,1))
-            movie_vec.fit_transform(self.text[1:])
-            self.keywords = movie_vec.get_feature_names()
-            self.df = self.df.append(pd.DataFrame({'Name':self.name, 'Keywords':[self.keywords]}))
+            movie_vec_uni= TfidfVectorizer(max_features=self.nofeatures, stop_words=stop_words, max_df=0.80,ngram_range=(1,1))
+            movie_vec_uni.fit_transform(self.text[1:])
+            self.unikeywords = list(movie_vec_uni.get_feature_names())
+            movie_vec_bi= TfidfVectorizer(max_features=self.nofeatures, stop_words=stop_words, max_df=0.80,ngram_range=(2,2))
+            movie_vec_bi.fit_transform(self.text[1:])
+            self.bikeywords = list(movie_vec_bi.get_feature_names())
+            self.unikeywords.extend(self.bikeywords)
+            self.df = self.df.append(pd.DataFrame({'Name':self.name, 'Keywords':[self.unikeywords]}))
 
     def make_dataframe(self,genre,lim):
         for i in range(0,lim):

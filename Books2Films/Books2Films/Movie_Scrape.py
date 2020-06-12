@@ -10,14 +10,13 @@ import numpy as np
 
 
 class Movies:
-    def __init__(self,book,nofeatures):
+    def __init__(self,book):
         self.df = pd.read_pickle(
-            '/home/colin/Insight_Project/data/smallset.pkl')
+            '/home/colin/Insight_Project/data/smallset_2.pkl')
         self.keywords = []
         self.webpage = ""
         self.title = ""
         self.coverlink = ""
-        self.nofeatures = nofeatures
         self.second_best = ""
         self.third_best = ""
         self.combine_frames(book)
