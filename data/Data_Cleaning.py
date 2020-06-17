@@ -83,7 +83,7 @@ class movie_reviews:
 
 
 reviews = movie_reviews()
-data = reviews.save_dataframe(100)
+data = reviews.save_dataframe(200)
 data.drop_duplicates('Name', inplace=True)
 data.reset_index(inplace=True)
 data.drop(columns=['index'], inplace=True)

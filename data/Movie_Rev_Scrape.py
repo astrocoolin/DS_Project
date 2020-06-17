@@ -22,12 +22,14 @@ def movie_list_generator(genre):
 
     #get the list of best movies
     top_250 = []
-    for i in range(0,2000,50):
+    for i in range(0,100,50):
         #IMDB_database = 'https://www.imdb.com/search/title/?groups=top_250&sort=user_rating,desc&start=%i&ref_=adv_nxt'%(i+1)
         IMDB_database = 'https://www.imdb.com/search/title/?title_type=movie&genres='+genre+'&sort=num_votes,desc&start='+str(i+1)+'&explore=title_type,genres&ref_=adv_nxt'
         r = requests.get(IMDB_database)
         html_soup = BeautifulSoup(r.content, features="html5lib")
         temp_50 = html_soup.find_all('h3')[:50]
+
+
         top_250.extend(temp_50)
         time.sleep(5.0)
     Name_list = []
@@ -46,10 +48,12 @@ def movie_list_generator(genre):
     return Name_list, Keyword_list
 
 def get_movie_labels(url, no_features, stop_words,j):
+    poop[0].a['href'].replace('title','').replace('/','')
     r = requests.get(url.replace('?', 'reviews?'))
     html_soup = BeautifulSoup(r.content, features="html5lib")
     Title = html_soup.find('meta', property='og:title')['content'][:-7]
     review_containers = html_soup.find_all('div', class_='content')
+
 
     raw_data = np.array([Title])
 
@@ -66,11 +70,7 @@ def get_movie_labels(url, no_features, stop_words,j):
     Movie_labels = Movie_feature_names
     return Title, Movie_labels
 
-
-#movie_list_generator('biography')
 movie_list_generator('fantasy')
-#movie_list_generator('crime')
-#movie_list_generator('history')
 
 #movie_titles, movie_labels = movie_list_generator()
 #df = pd.DataFrame({'Name': movie_titles, 'Keywords': movie_labels})
