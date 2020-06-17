@@ -13,7 +13,7 @@ import numpy as np
 class Movies:
     keywords: Set[Any]
 
-    def __init__(self, book):
+    def __init__(self):
         self.df = pd.read_pickle(
             '/home/colin/Insight_Project/data/Data_id.pkl')
         self.keywords = []
@@ -22,10 +22,12 @@ class Movies:
         self.title_code = ""
         self.next_best = ""
         self.next_best_code = ''
+        # self.grab_movie_img()
+
+    def compare_book(self,book):
         self.combine_frames(book)
         self.poop = self.process_df('Keywords')
         self.best_movie()
-        # self.grab_movie_img()
 
     def combine_frames(self, book):
         Book_df = book.df
@@ -64,7 +66,7 @@ class Movies:
         self.next_best_code = list(self.df['codes'][top[0:3]])
 
     def grab_movie_img(self, code):
-        url = 'https://www.imdb.com/title/'+code
+        url = 'https://www.imdb.com/title/'+str(code)
         html = requests.get(url)
         soup = BeautifulSoup(html.text)
         return soup.find(class_='poster').img['src']

@@ -10,12 +10,11 @@ from urllib.parse import urlparse
 
 
 class Book:
-    def __init__(self, name):
+    def __init__(self):
         # get stopwords
         stop_nltk = set(stopwords.words("english"))
         stop_custom = pd.read_csv('/home/colin/Insight_Project/data/stop_custom.csv')['0']
         self.stop_words = stop_nltk.union(stop_custom)
-        self.name = name
         self.title = ""
         self.coverlink = ""
         self.unikeywords = []
@@ -23,8 +22,10 @@ class Book:
         self.trikeywords = []
         self.nofeatures = 30
         self.nofeatures_bitri = 10
+
+    def get(self,name):
+        self.name = name
         self.get_webpage()
-        print(self)
         self.get_keywords()
         self.df = pd.DataFrame({'Name': [self.name], 'Keywords': [self.unikeywords],
                                 'BiKeywords': [self.bikeywords], 'TriKeywords': [self.trikeywords]})
