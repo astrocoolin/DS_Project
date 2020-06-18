@@ -49,7 +49,7 @@ class movie_reviews:
             self.name = self.text[0]
 
             self.unikeywords = self.process_df(1, 0.70)
-            self.bikeywords = self.process_df(2, 0.90)
+            self.bikeywords = self.process_df(2, 0.85)
             self.trikeywords = self.process_df(3, 0.95)
             self.df = self.df.append(pd.DataFrame(
                 {'Name': self.name, 'Keywords': [self.unikeywords], 'BiKeywords': [self.bikeywords],

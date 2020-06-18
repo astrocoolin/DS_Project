@@ -64,6 +64,6 @@ class Book:
         if len(review_containers) < 2:
             return
 
-        self.unikeywords = self.process_df(1, 0.70, review_containers)
-        self.bikeywords = self.process_df(2, 0.90, review_containers)
+        self.unikeywords = self.process_df(1, 0.65, review_containers)
+        self.bikeywords = self.process_df(2, 0.80, review_containers)
         self.trikeywords = self.process_df(3, 0.95, review_containers)

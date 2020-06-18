@@ -60,10 +60,10 @@ class Movies:
         self.keywords = self.keywords.union(set(self.df['BiKeywords'][top[2]]).intersection(self.df['BiKeywords'][0]))
         self.keywords = self.keywords.union(set(self.df['TriKeywords'][top[2]]).intersection(self.df['TriKeywords'][0]))
         print(self.keywords)
-        self.title = self.df['names'][top[3]]
-        self.title_code = self.df['codes'][top[3]]
-        self.next_best = list(self.df['names'][top[0:3]])
-        self.next_best_code = list(self.df['codes'][top[0:3]])
+        self.title = self.df['Name'][top[3]]
+        self.title_code = self.df['Codes'][top[3]]
+        self.next_best = list(self.df['Name'][top[0:3]])
+        self.next_best_code = list(self.df['Codes'][top[0:3]])
 
     def grab_movie_img(self, code):
         url = 'https://www.imdb.com/title/'+str(code)

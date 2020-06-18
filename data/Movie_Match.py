@@ -64,3 +64,9 @@ def full_collection():
     full_codes_list.extend(codes)
     return full_names_list, full_codes_list
 
+names , codes = full_collection()
+df_codes = pd.DataFrame({'Name':names,'Codes':codes})
+df_keys = pd.read_pickle('Data.pkl')
+df = df_keys.join(df_codes.set_index('Name'), on='Name')
+df = df.drop_duplicates('Codes')
+df.to_pickle('Data_id.pkl')

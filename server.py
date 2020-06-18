@@ -10,16 +10,16 @@ app = makeapp()
 
 @app.route('/')
 def index():
-    return render_template('index_2.html')
+    return render_template('index.html')
 
 @app.route('/loading')
 def intermediate():
-    return render_template('intermediate_2.html', book_title=book.title, book_cover=book.coverlink)
+    return render_template('intermediate.html', book_title=book.title, book_cover=book.coverlink)
 
 @app.route('/results')
 def delivery():
     movies.compare_book(book)
-    return render_template('results_2.html',
+    return render_template('results.html',
                        book_title = book.title,
                        movie_title_1=movies.title,
                        movie_title_2=movies.next_best[0],
@@ -35,9 +35,9 @@ def delivery():
 @app.route('/', methods=["POST"])  # we are now using these methods to get user input
 def dynamic_page():
     global book
-    book = BookProcessing.Book()
+    book = Book_Process.Book()
     global movies
-    movies = Movie_Scrape.Movies()
+    movies = Movie_Process.Movies()
     if request.method == 'POST':
         book_name = str(request.form['Book_Name'])
         book.get(book_name)
