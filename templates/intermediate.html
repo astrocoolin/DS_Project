@@ -6,9 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Berkshire+Swash">
 <link rel="stylesheet" href="../static/css/endgame.css">
 <style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Berkshire Swash", sans-serif;color:#002b36 }
 .w3-bar-block .w3-bar-item {padding:20px}
 </style>
 <body>
@@ -16,35 +17,38 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 <div class="w3-main w3-content w3-padding-16" style="max-width:1200px;margin-top:50px;background-color:#eee8d5;border-radius:10px">
 
   <!-- First Photo Grid-->
+  <div style="text-align:center">
   <h1> Finding Suggestions for "{{ book_title }}" </h1>
+  </div>
+
   <div class="w3-row-padding w3-padding-16 w3-center" id="food">
-    <div class="w3-quarter">
+    <div class="w3-third">
+      <h3> {{ movie_title_1 }} </h3>
     </div>
-    <div class="w3-quarter">
+    <div class="w3-third">
+	    <img src={{ book_cover }} alt="Cherries" style="width:50%" class="w3-center">
+      <h3> {{ movie_title_3 }} </h3>
     </div>
-    <div class="w3-quarter">
-	    <img src={{ book_cover }} alt="Cherries" style="width:100%">
-    </div>
-    <div class="w3-quarter">
+    <div class="w3-third">
+      <h3> {{ movie_title_4 }} </h3>
     </div>
   </div>
     <!-- Footer -->
   <footer class="w3-row-padding w3-padding-32">
-    <div class="w3-third">
+    <div class="w3-third" style="text-align:center;">
       <h3>About</h3>
       <p> NetFics: My Insight Data Science Project</p>
       <p> Colin Lewis, PhD </p>
-      <p> <a href="http://github.com/astrocoolin/DS_Project" target="_blank"> Github</a> for nerds </p>
-    </div>
-
-    <div class="w3-third">
     </div>
 
     <div class="w3-third w3-serif">
-      <h3>Try Again!</h3>
-      <p>
-        poo poo
-      </p>
+      <a href="/results" class="btn btn-outline btn-xl" style="width:60%;text-align:center;" > Load Results </a>
+      <a href="/" class="btn btn-outline btn-xl" style="width:75%;text-align:center;" > Not Your Book? </a>
+    </div>
+
+    <div class="w3-third" style="text-align:center;">
+      <h3>Links</h3>
+      <p> <a href="http://github.com/astrocoolin/DS_Project" target="_blank"> Github</a>, <a href="https://www.linkedin.com/in/colin-n-lewis/" target="_blank"> Linkedin </a>  </p>
     </div>
   </footer>
 

@@ -19,23 +19,28 @@ background-color = #FFF000
 
 .btn-outline:hover, .btn-outline:focus, .btn-outline:active, .btn-outline.active {
   color: white;
-  border-color: #550000;
-  background-color: #657b83;
+  border-color: #073642;
+  background-color: #073642;
 }
 
 .btn {
   border-radius: 300px;
   border-color: #073642;
-  font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif';
   letter-spacing: 2px;
-  text-transform: uppercase;
   margin-right: auto;
   margin-left: auto;
   margin-top: 50px;
   margin-bottom: auto;
   display: block;
+  font-family: "Berkshire Swash", sans-serif;
+  text-decoration:none;
+  color: #eee8d5;
+  background-color: #002b36;
 }
 
 .btn-xl {
-  font-size: 11px;
+  font-size: 15px;
   padding: 15px 45px;
+}
+
+}
