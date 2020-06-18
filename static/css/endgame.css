@@ -12,7 +12,7 @@ background-color = #FFF000
 }
 
 .btn-outline {
-  color: white;
+  color: #073642;
   border: 1px solid;
   border-color: white;
 }
@@ -20,14 +20,20 @@ background-color = #FFF000
 .btn-outline:hover, .btn-outline:focus, .btn-outline:active, .btn-outline.active {
   color: white;
   border-color: #550000;
-  background-color: #550000;
+  background-color: #657b83;
 }
 
 .btn {
   border-radius: 300px;
+  border-color: #073642;
   font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif';
   letter-spacing: 2px;
   text-transform: uppercase;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 50px;
+  margin-bottom: auto;
+  display: block;
 }
 
 .btn-xl {
