@@ -27,16 +27,16 @@ class movie_reviews:
     def set_index(self, i):
         self.index = i
 
-    def process_df(self, ngram, maxdf):
+    def process_df(self, ngram, maxdf,mindf):
         # tfidf vectorize text
         movie_vec_uni = TfidfVectorizer(max_features=self.nofeatures, stop_words=self.stop_words, max_df=maxdf,
-                                        ngram_range=(ngram, ngram))
+                                        ngram_range=(ngram, ngram),min_df = mindf)
         movie_vec_uni.fit_transform(self.text[1:])
         return list(movie_vec_uni.get_feature_names())
 
     def get_keywords(self, genre):
         self.text = list(np.load('./raw/' + genre + '/Movie_' + str(self.index) + '.npy'))
-
+        print(self.text[0])
         if len(self.text) > 10:
             for j, review in enumerate(self.text):
                 if j > 0:
@@ -48,16 +48,18 @@ class movie_reviews:
                     self.text[j] = ''.join([k for k in self.text[j] if not k.isdigit()])
             self.name = self.text[0]
 
-            self.unikeywords = self.process_df(1, 0.70)
-            self.bikeywords = self.process_df(2, 0.85)
-            self.trikeywords = self.process_df(3, 0.95)
+            mindf = 0.075
+            if (self.text[0] == 'Deadpool 2 (2018)') or (self.text[0] == 'Shazam! (2019)') or (self.text[0] == 'Ghost in the Shell (2017)') or (self.text[0] == "Ocean's 8 (2018)") or (self.text[0] == 'Icarus (2017)') or (self.text[0] == 'Miss Americana (2020)') or (self.text[0] == 'Dogtown and Z-Boys (2001)') or (self.text[0] == 'The American Meme (2018)') or (self.text[0] == 'Knock Down the House (2019)') or (self.text[0] == 'Tell Me Who I Am (2019)') or (self.text[0] == 'Frozen II (2019)') or (self.text[0] == 'Ghostbusters (2016)') or (self.text[0] == 'Get Out (2017)') or (self.text[0] == 'Saw II (2005)') or (self.text[0] == 'Us (2019)') or (self.text[0] == 'Midsommar (2019)') or (self.text[0] == 'Train to Busan (2016)') or (self.text[0] == 'Annabelle (2014)') or (self.text[0] == 'Oculus (2013)') or (self.text[0] == 'Bacurau (2019)'): mindf = 1 
+            self.unikeywords = self.process_df(1, 0.7,mindf)
+            self.bikeywords = self.process_df(2, 0.85,mindf)
+            self.trikeywords = self.process_df(3, 0.95,mindf)
             self.df = self.df.append(pd.DataFrame(
                 {'Name': self.name, 'Keywords': [self.unikeywords], 'BiKeywords': [self.bikeywords],
                  'TriKeywords': [self.trikeywords]}))
 
     def make_dataframe(self, genre, lim):
         for i in range(0, lim):
-            print(i, genre)
+            #print(i, genre)
             self.set_index(i)
             self.get_keywords(genre)
 

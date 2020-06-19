@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import CountVectorizer
 import time
