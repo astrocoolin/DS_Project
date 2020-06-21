@@ -39,10 +39,13 @@ def dynamic_page():
     global movies
     movies = Movie_Process.Movies()
     if request.method == 'POST':
-        book_name = str(request.form['Book_Name'])
-        book.get(book_name)
-        return redirect('/loading')
+        try:
+            book_name = str(request.form['Book_Name'])
+            book.get(book_name)
+        except:
+            return render_template('index.html')
 
+        return redirect('/loading')
 #app.run(host='0.0.0.0', debug = True)
 
 if __name__ == "__main__":

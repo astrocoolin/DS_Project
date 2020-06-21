@@ -7,7 +7,15 @@ from bs4 import BeautifulSoup
 import re
 import pandas as pd
 from urllib.parse import urlparse
+from nltk import word_tokenize
+from nltk.stem import WordNetLemmatizer
+import string
 
+class LemmaTokenizer:
+    def __init__(self):
+        self.wnl = WordNetLemmatizer()
+    def __call__(self, doc):
+        return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]
 
 class Book:
     def __init__(self):
@@ -34,6 +42,7 @@ class Book:
         url = 'https://www.goodreads.com/search?q='+self.name
         r = requests.get(url)
         soup = BeautifulSoup(r.text)
+
         page = soup.find(class_='tableList')
         tempurl = page.a['href']
         url = 'https://www.goodreads.com/'+tempurl
@@ -41,11 +50,30 @@ class Book:
         r = requests.get(url)
         self.soup = BeautifulSoup(r.content)
 
+    def process_df(self, ngram, maxdf,text):
+        # tfidf vectorize text
+        mindf = 0.1
+        try:
+            keys = self.vectorize(ngram,maxdf,mindf,text)
+        except:
+            mindf =0.05
+            try:
+                keys = self.vectorize(ngram, maxdf, mindf,text)
+            except:
+                mindf = 1
+                keys = self.vectorize(ngram, maxdf, mindf,text)
+        return keys
 
-    def process_df(self, ngrams, maxdf, review_containers):
+    def vectorize(self,ngram,maxdf,mindf,text):
+        Vect = TfidfVectorizer(max_features=self.nofeatures, stop_words=self.stop_words, max_df=maxdf,
+                                        ngram_range=(ngram, ngram), min_df=mindf)
+        Vect.fit_transform(text)
+        return list(Vect.get_feature_names())
+
+    def process_df_old(self, ngrams, maxdf, review_containers,mindf):
         # tfidf vectorize dataframe
         Vect = TfidfVectorizer(max_features=self.nofeatures, ngram_range=(ngrams, ngrams), stop_words=self.stop_words,
-                               max_df=maxdf)
+                               max_df=maxdf,min_df = mindf,tokenizer=LemmaTokenizer())
         Book_Vect = Vect.fit_transform(review_containers)
         Book_feature_names = list(Vect.get_feature_names())
         return Book_feature_names
@@ -60,6 +88,7 @@ class Book:
         review_containers = self.soup.find_all('div', class_='review')
         for i, review in enumerate(review_containers):
             review_containers[i] = review.find('span', class_='readable').text.encode("ascii", "ignore").strip()
+            review_containers[i] = str(review_containers[i]).translate(str.maketrans('', '', string.punctuation))
             # make sure there are actual reviews
         if len(review_containers) < 2:
             return
