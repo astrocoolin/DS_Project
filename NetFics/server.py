@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 from flask import Flask, render_template, request, redirect
 from NetFics import Movie_Process, Book_Process
+from NetFics import app
 
-
-def makeapp():
-    app = Flask(__name__,template_folder='/home/colin/Insight_Project/templates')
-    return app
-app = makeapp()
+app.secret_key = 'random'
 
 @app.route('/')
 def index():
@@ -46,6 +43,7 @@ def dynamic_page():
             return render_template('index.html')
 
         return redirect('/loading')
+
 #app.run(host='0.0.0.0', debug = True)
 
 if __name__ == "__main__":

@@ -1,11 +1,10 @@
 from setuptools import setup
 
 setup(name='NetFix',
-    version="0.0.1",
-    author="Example Author",
-    author_email="author@example.com",
-    description="A small example package",
-    url="https://github.com/pypa/sampleproject",
+    version="1.0.0",
+    author="Colin Lewis",
+    description="Movie Recommendations",
+    url="https://github.com/astrocoolin/DS_Project",
     packages=setuptools.find_packages(),
     python_requires='>=3.6',
 )
