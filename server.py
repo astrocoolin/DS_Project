@@ -41,7 +41,7 @@ def dynamic_page():
     if request.method == 'POST':
         try:
             book_name = str(request.form['Book_Name'])
-            book.get(book_name)
+            book.get_book(book_name)
         except:
             return render_template('index.html')
 

@@ -23,6 +23,7 @@ class Book:
         stop_nltk = set(stopwords.words("english"))
         stop_custom = pd.read_csv('/home/colin/Insight_Project/data/stop_custom.csv')['0']
         self.stop_words = stop_nltk.union(stop_custom)
+
         self.title = ""
         self.coverlink = ""
         self.unikeywords = []
@@ -31,7 +32,7 @@ class Book:
         self.nofeatures = 30
         self.nofeatures_bitri = 10
 
-    def get(self,name):
+    def get_book(self,name):
         self.name = name
         self.get_webpage()
         self.get_keywords()
@@ -50,7 +51,7 @@ class Book:
         r = requests.get(url)
         self.soup = BeautifulSoup(r.content)
 
-    def process_df(self, ngram, maxdf,text):
+    def prevectorize(self, ngram, maxdf,text):
         # tfidf vectorize text
         mindf = 0.1
         try:
@@ -70,14 +71,6 @@ class Book:
         Vect.fit_transform(text)
         return list(Vect.get_feature_names())
 
-    def process_df_old(self, ngrams, maxdf, review_containers,mindf):
-        # tfidf vectorize dataframe
-        Vect = TfidfVectorizer(max_features=self.nofeatures, ngram_range=(ngrams, ngrams), stop_words=self.stop_words,
-                               max_df=maxdf,min_df = mindf,tokenizer=LemmaTokenizer())
-        Book_Vect = Vect.fit_transform(review_containers)
-        Book_feature_names = list(Vect.get_feature_names())
-        return Book_feature_names
-
     def get_keywords(self):
 
         # get book keywords and title of book, scrape from internet
@@ -93,6 +86,7 @@ class Book:
         if len(review_containers) < 2:
             return
 
-        self.unikeywords = self.process_df(1, 0.65, review_containers)
-        self.bikeywords = self.process_df(2, 0.80, review_containers)
-        self.trikeywords = self.process_df(3, 0.95, review_containers)
+        # get keywords for ngrams 1-3, with stricter max_df for tfidf
+        self.unikeywords = self.prevectorize(1, 0.65, review_containers)
+        self.bikeywords = self.prevectorize(2, 0.80, review_containers)
+        self.trikeywords = self.prevectorize(3, 0.95, review_containers)

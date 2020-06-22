@@ -26,14 +26,13 @@ class Movies:
 
     def compare_book(self,book):
         self.combine_frames(book)
-        self.poop = self.process_df('Keywords')
         self.best_movie()
 
     def combine_frames(self, book):
         Book_df = book.df
         self.df = Book_df.append(self.df).reset_index(drop=True)
 
-    def process_df(self, keywordtype):
+    def get_results(self, keywordtype):
         mlb = MultiLabelBinarizer()
         temp_df = self.df.copy()
         sparse_df = pd.DataFrame(mlb.fit_transform(temp_df.pop(keywordtype)),
@@ -47,9 +46,9 @@ class Movies:
     def best_movie(self):
         # Determine which movie has the most features in common with the book
         WGT = [0.35, 0.45, 0.6]
-        JS1 = WGT[0] * self.process_df('Keywords')
-        JS2 = WGT[1] * self.process_df('BiKeywords')
-        JS3 = WGT[2] * self.process_df('TriKeywords')
+        JS1 = WGT[0] * self.get_results('Keywords')
+        JS2 = WGT[1] * self.get_results('BiKeywords')
+        JS3 = WGT[2] * self.get_results('TriKeywords')
         total_score = (JS1 + JS2 + JS3)/np.sum(WGT)
 
         top = np.argsort(total_score)[-5:-1]
@@ -60,6 +59,7 @@ class Movies:
         self.keywords = self.keywords.union(set(self.df['BiKeywords'][top[2]]).intersection(self.df['BiKeywords'][0]))
         self.keywords = self.keywords.union(set(self.df['TriKeywords'][top[2]]).intersection(self.df['TriKeywords'][0]))
         print(self.keywords)
+        # get top results
         self.title = self.df['Name'][top[3]]
         self.title_code = self.df['Codes'][top[3]]
         self.next_best = list(self.df['Name'][top[0:3]])
