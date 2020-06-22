@@ -1,1 +1,6 @@
 ./data/raw
+./NetFics/NetFics/__pycache__/Book_Process.cpython-38.pyc
+./NetFics/NetFics/__pycache__/Movie_Process.cpython-38.pyc
+./NetFics/__pycache__/__init__.cpython-38.pyc
+./NetFics/__pycache__/server.cpython-38.pyc
+
